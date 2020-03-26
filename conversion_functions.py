@@ -18,6 +18,8 @@ for key, value in phone_pad.items():
 # Input: Phone Number  - type:str
 # Output: Stripped Number - type:str
 # Func (strip): Removes all characters other than digits and alphabets
+""" Input: Phone Number  - type:str
+    Funct (strip): Removes all characters other than digits and alphabets"""
 
 def strip_number(phone_number):
     strip_num = re.sub('[^A-Za-z0-9]+', '', phone_number)
@@ -26,6 +28,9 @@ def strip_number(phone_number):
 # Input: Phone Number  - type:str
 # Output: Formatted Number - type:str
 # Func (phone_format): Formats number into following pattern (d-ddd-ddd-dddd)
+""" Input: Phone Number - type: str
+    Funct (phone_format): Returns formated number into following pattern
+                          (d-ddd-ddd-dddd) or (ddd-lll-ddd) where- digit; l-letter"""
 
 def phone_format(phone_number):
     clean_phone_number = re.sub('w+', '', phone_number)
