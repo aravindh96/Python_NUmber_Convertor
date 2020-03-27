@@ -25,8 +25,8 @@ def strip_number(phone_number):
     return strip_num
 
 
-"""Input: Phone Number - type:str
-   Funct(valid_word): Returns a valid english word in the given number"""
+""" Input: Phone Number - type:str
+    Funct(valid_word): Returns a valid english word in the given number"""
 
 def valid_word(phone_number):
     p = re.compile('[^A-Za-z]')
@@ -41,11 +41,11 @@ def valid_word(phone_number):
 
 """ Input: Phone Number - type: str
     Funct (phone_format): Returns formated number into following pattern
-                          (d-ddd-ddd-dddd) or (ddd-lll-ddd) where- digit; l-letter"""
+                          (d-ddd-ddd-dddd) or (ddd-lll-ddd) where d-digit; l-letter"""
 
 def phone_format(phone_number):
     clean_phone_number = re.sub('[^A-Za-z0-9]+', '', str(phone_number))
-    word = valid_word(clean_phone_number)
+    word = valid_word(phone_number)
 
     if word:
         p = re.compile('(' + word + ')')
@@ -57,6 +57,8 @@ def phone_format(phone_number):
                 formatted_num += num_list[i] + "-"
         formatted_num += num_list[-1]
         return formatted_num
+
+    # Formats the number to the desired pattern using regex
 
     formatted_phone_number = (re.sub("(\w)(?=(\w{3})+(?!\w))", r"\1-", "%s" %
                              str(clean_phone_number[:-1])) + clean_phone_number[-1])
