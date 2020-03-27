@@ -41,6 +41,20 @@ def valid_word(phone_number):
                           (d-ddd-ddd-dddd) or (ddd-lll-ddd) where- digit; l-letter"""
 
 def phone_format(phone_number):
-    clean_phone_number = re.sub('w+', '', phone_number)
-    formatted_phone_number = re.sub("(\w)(?=(\w{3})+(?!\w))", r"\1-", "%s" %str(clean_phone_number[:-1])) + clean_phone_number[-1]
+    clean_phone_number = re.sub('[^A-Za-z0-9]+', '', str(phone_number))
+    word = valid_word(clean_phone_number)
+
+    if word:
+        p = re.compile('(' + word + ')')
+        num_list = p.split(clean_phone_number)
+        num_list = list(filter(None, num_list))
+        formatted_num = ""
+        for i in range(len(num_list)):
+            if i != len(num_list)-1:
+                formatted_num += num_list[i] + "-"
+        formatted_num += num_list[-1]
+        return formatted_num
+
+    formatted_phone_number = (re.sub("(\w)(?=(\w{3})+(?!\w))", r"\1-", "%s" %
+                             str(clean_phone_number[:-1])) + clean_phone_number[-1])
     return formatted_phone_number
