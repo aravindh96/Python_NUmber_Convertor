@@ -28,6 +28,18 @@ def strip_number(phone_number):
 # Input: Phone Number  - type:str
 # Output: Formatted Number - type:str
 # Func (phone_format): Formats number into following pattern (d-ddd-ddd-dddd)
+"""Input: Phone Number - type:str
+   Funct(valid_word): Returns a valid english word in the given number"""
+def valid_word(phone_number):
+    p = re.compile('[^A-Za-z]')
+    word_list = p.split(phone_number)
+    word_list = list(filter(None, word_list))
+
+    for word in word_list:
+        if(word.lower() in word_set and len(word) > 2):
+            return word
+    return ""
+
 """ Input: Phone Number - type: str
     Funct (phone_format): Returns formated number into following pattern
                           (d-ddd-ddd-dddd) or (ddd-lll-ddd) where- digit; l-letter"""
