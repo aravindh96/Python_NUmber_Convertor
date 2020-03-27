@@ -25,6 +25,7 @@ def strip_number(phone_number):
 
 """Input: Phone Number - type:str
    Funct(valid_word): Returns a valid english word in the given number"""
+
 def valid_word(phone_number):
     p = re.compile('[^A-Za-z]')
     word_list = p.split(phone_number)
