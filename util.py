@@ -3,7 +3,6 @@ import re
 from nltk.corpus import words
 class Number:
 
-
     def __init__(self, phone_number, word_set=None, phone_pad=None, keypad=None):
         """
         Initializing instance variables
@@ -30,8 +29,6 @@ class Number:
         for key, value in phone_pad.items():
             keypad.update(dict.fromkeys(value, key))
 
-
-
     def strip_number(self,number):
         """
         Input: Phone Number  - type:str
@@ -39,8 +36,6 @@ class Number:
         """
         strip_num = re.sub('[^A-Za-z0-9]+', '', str(number))
         return strip_num
-
-
 
     def valid_word(self,number):
         """
@@ -55,8 +50,6 @@ class Number:
             if(word.lower() in self.word_set and len(word) > 2):
                 return word
         return ""
-
-
 
     def phone_format(self,number):
         """
