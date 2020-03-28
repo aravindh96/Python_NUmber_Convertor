@@ -1,8 +1,10 @@
 
-from util import *
+from util import Number
+import random
 """
 
 """
+
 
 class NumberConverter:
 
@@ -10,16 +12,16 @@ class NumberConverter:
         self.phone_number = phone_number
         self.num = Number(self.phone_number)
 
-
-    def set_number(self,number):
+    def set_number(self, number):
         self.num.phone_number = number
-
 
     def words_to_number(self):
         """
         Function: Converts a phone number containing letters
                   into a pure phone number with only digits
         """
+        if self.num.phone_number is None:
+            raise Exception("Input should be of type: str")
 
         ret_num = ""
         if not self.num.phone_number:
@@ -32,18 +34,16 @@ class NumberConverter:
             ret_num += self.num.phone_number[i]
         return self.num.phone_format(ret_num)
 
-
     def all_wordifications(self):
         """
         Function: Returns a list of all possible combinations
                   containing valid english words and a list of
                   unique english words that exist for this number
         """
-        print(self.num.phone_number)
-    
+
         phone_number = self.num.strip_number(self.words_to_number())
         if not phone_number:
-            return [],[]
+            return [], []
 
         number_list = []
         english_list = set()
@@ -68,3 +68,15 @@ class NumberConverter:
 
         wordification_helper(phone_number, "")
         return number_list, english_list
+
+    def number_to_words(self):
+        """
+        Function: Returns one random number from the list of
+                  numbers containing valid english word combinations
+        """
+
+        num_list, english_words = self.all_wordifications()
+        if num_list:
+            return random.choice(num_list)
+        else:
+            return ""
