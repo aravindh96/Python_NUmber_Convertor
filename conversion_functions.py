@@ -33,20 +33,20 @@ class NumberConverter():
 
     """ Input: Phone Number  - type:str
         Funct (strip): Removes all characters other than digits and alphabets"""
-    def strip_number(self):
-        strip_num = re.sub('[^A-Za-z0-9]+', '', str(self.phone_number))
+    def strip_number(self,number):
+        strip_num = re.sub('[^A-Za-z0-9]+', '', str(number))
         return strip_num
 
 
     """ Input: Phone Number - type:str
         Funct(valid_word): Returns a valid english word in the given number"""
-    def valid_word(self):
+    def valid_word(self,number):
         p = re.compile('[^A-Za-z]')
-        word_list = p.split(str(self.phone_number))
+        word_list = p.split(str(number))
         word_list = list(filter(None, word_list))
 
         for word in word_list:
-            if(word.lower() in word_set and len(word) > 2):
+            if(word.lower() in self.word_set and len(word) > 2):
                 return word
         return ""
 
@@ -54,9 +54,9 @@ class NumberConverter():
     """ Input: Phone Number - type: str
         Funct (phone_format): Returns formated number into following pattern
                               (d-ddd-ddd-dddd) or (ddd-lll-ddd) where d-digit; l-letter"""
-    def phone_format(self):
-        clean_phone_number = self.strip_number()
-        word = self.valid_word()
+    def phone_format(self,number):
+        clean_phone_number = self.strip_number(number)
+        word = self.valid_word(number)
 
         if word:
             p = re.compile('(' + word + ')')
@@ -74,3 +74,15 @@ class NumberConverter():
         formatted_phone_number = (re.sub("(\w)(?=(\w{3})+(?!\w))", r"\1-", "%s" %
                                  str(clean_phone_number[:-1])) + clean_phone_number[-1])
         return formatted_phone_number
+
+
+    """ Funct(words_to_number): Converts a phone number containing letters
+        into a pure phone number with only digits"""
+    def words_to_number(self):
+        ret_num = ""
+        for i in range(len(self.phone_number)):
+            if(self.phone_number[i].isalpha()):
+                ret_num += str(self.keypad[self.phone_number[i].upper()])
+                continue
+            ret_num += self.phone_number[i]
+        return self.phone_format(ret_num)
