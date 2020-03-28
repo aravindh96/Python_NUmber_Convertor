@@ -3,9 +3,11 @@ import re
 from nltk.corpus import words
 class Number:
 
-    # Initializing instance variables
-    def __init__(self, phone_number, word_set=None, phone_pad=None, keypad=None):
 
+    def __init__(self, phone_number, word_set=None, phone_pad=None, keypad=None):
+        """
+        Initializing instance variables
+        """
         self.phone_number = phone_number
         if word_set is None:
             word_set = set(words.words())
@@ -29,16 +31,22 @@ class Number:
             keypad.update(dict.fromkeys(value, key))
 
 
-    """ Input: Phone Number  - type:str
-        Funct (strip): Removes all characters other than digits and alphabets"""
+
     def strip_number(self,number):
+        """
+        Input: Phone Number  - type:str
+        Function: Removes all characters other than digits and alphabets
+        """
         strip_num = re.sub('[^A-Za-z0-9]+', '', str(number))
         return strip_num
 
 
-    """ Input: Phone Number - type:str
-        Funct(valid_word): Returns a valid english word in the given number"""
+
     def valid_word(self,number):
+        """
+        Input: Phone Number - type:str
+        Function: Returns a valid english word in the given number
+        """
         p = re.compile('[^A-Za-z]')
         word_list = p.split(str(number))
         word_list = list(filter(None, word_list))
@@ -49,10 +57,13 @@ class Number:
         return ""
 
 
-    """ Input: Phone Number - type: str
-        Funct (phone_format): Returns formated number into following pattern
-                              (d-ddd-ddd-dddd) or (ddd-lll-ddd) where d-digit; l-letter"""
+
     def phone_format(self,number):
+        """
+        Input: Phone Number - type: str
+        Function: Returns formated number into following pattern
+                  (d-ddd-ddd-dddd) or (ddd-lll-ddd) where d-digit; l-letter
+        """
         clean_phone_number = self.strip_number(number)
         if not clean_phone_number:
             return clean_phone_number

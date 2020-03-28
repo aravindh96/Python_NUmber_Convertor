@@ -10,12 +10,16 @@ class NumberConverter:
         self.phone_number = phone_number
         self.num = Number(self.phone_number)
 
+
     def set_number(self,number):
         self.num.phone_number = number
 
+
     def words_to_number(self):
-        """ Funct(words_to_number): Converts a phone number containing letters
-            into a pure phone number with only digits"""
+        """
+        Function: Converts a phone number containing letters
+                  into a pure phone number with only digits
+        """
 
         ret_num = ""
         if not self.num.phone_number:
@@ -30,13 +34,20 @@ class NumberConverter:
 
 
     def all_wordifications(self):
-        phone_number = self.num.strip_number(self.num.phone_number)
+        """
+        Function: Returns a list of all possible combinations
+                  containing valid english words and a list of
+                  unique english words that exist for this number
+        """
+        print(self.num.phone_number)
+    
+        phone_number = self.num.strip_number(self.words_to_number())
         if not phone_number:
             return [],[]
-        self.num.phone_number = self.words_to_number()
 
         number_list = []
         english_list = set()
+
         # Recursive Helper Function
         def wordification_helper(phone_number, combination):
             # Base case: if length(num)=0 add to list
@@ -56,4 +67,4 @@ class NumberConverter:
             return
 
         wordification_helper(phone_number, "")
-        return number_list,english_list
+        return number_list, english_list
