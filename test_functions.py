@@ -3,7 +3,7 @@ import unittest
 
 from conversion_functions import *
 
-class TestHelper(unittest.TestCase):
+class TestHelperFunctions(unittest.TestCase):
 
     test_number = NumberConverter("18009493582")
 
@@ -71,6 +71,30 @@ class TestHelper(unittest.TestCase):
         self.assertEqual(result.lower(),"1-800-885-428-9547")
 
 
+class TestMainFunctions(unittest.TestCase):
+
+    test_number = NumberConverter("18009456741")
+
+
+    # Test that words_to_number() returns correct pattern removing non alphanumeric characters
+    def test_words2num(self):
+        self.test_number.phone_number = "18#!0\ 0\"-P8y*th(on)"
+        result = self.test_number.words_to_number()
+        self.assertEqual(result,"1-800-789-8466")
+
+
+    # Test checks if words_to_number() works with pure digit input
+    def test_words2num_digits(self):
+        self.test_number.phone_number = "1800-0015-424"
+        result = self.test_number.words_to_number()
+        self.assertEqual(result,"1-800-001-5424")
+
+
+    # Test checks if words_to_number() works with empty input
+    def test_words2num_empty(self):
+        self.test_number.phone_number = ""
+        result = self.test_number.words_to_number()
+        self.assertEqual(result,"")
 
 
 

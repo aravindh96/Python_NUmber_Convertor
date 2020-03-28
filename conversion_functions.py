@@ -70,7 +70,6 @@ class NumberConverter():
             return formatted_num
 
         # Formats the number to the desired pattern using regex
-
         formatted_phone_number = (re.sub("(\w)(?=(\w{3})+(?!\w))", r"\1-", "%s" %
                                  str(clean_phone_number[:-1])) + clean_phone_number[-1])
         return formatted_phone_number
@@ -80,6 +79,8 @@ class NumberConverter():
         into a pure phone number with only digits"""
     def words_to_number(self):
         ret_num = ""
+        if not self.phone_number:
+            return self.phone_number
         for i in range(len(self.phone_number)):
             if(self.phone_number[i].isalpha()):
                 ret_num += str(self.keypad[self.phone_number[i].upper()])
