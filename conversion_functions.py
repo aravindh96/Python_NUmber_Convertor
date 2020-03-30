@@ -1,9 +1,14 @@
 
-from util import Number
-import random
+"""
+conversion_functions.py implements 3 functions as part of the NumberConverter
+class. The three functions words_to_number() , number_to_words() and
+all_wordifications() are implemented below.
+
+Helper functions are defined in the util.py file under the Number class.
 """
 
-"""
+from util import Number
+import random
 
 
 class NumberConverter:
@@ -21,7 +26,8 @@ class NumberConverter:
                   into a pure phone number with only digits
         """
         if self.num.phone_number is None:
-            raise Exception("Input should be of type: str")
+            print("Input should be of type: str")
+            return ""
 
         ret_num = ""
         if not self.num.phone_number:
@@ -40,7 +46,9 @@ class NumberConverter:
                   containing valid english words and a list of
                   unique english words that exist for this number
         """
-
+        if self.num.phone_number is None:
+            print("Input must be of type str")
+            return [], []
         phone_number = self.num.strip_number(self.words_to_number())
         if not phone_number:
             return [], []
@@ -74,7 +82,9 @@ class NumberConverter:
         Function: Returns one random number from the list of
                   numbers containing valid english word combinations
         """
-
+        if self.num.phone_number is None:
+            print("Input must be of type str")
+            return ""
         num_list, english_words = self.all_wordifications()
         if num_list:
             return random.choice(num_list)
