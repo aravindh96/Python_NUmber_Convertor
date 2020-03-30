@@ -1,65 +1,92 @@
 
-import re
-from nltk.corpus import words
-word_set = set(words.words())
-phone_pad = {'0': [],
-             '1': [],
-             '2': ['A', 'B', 'C'],
-             '3': ['D', 'E', 'F'],
-             '4': ['G', 'H', 'I'],
-             '5': ['J', 'K', 'L'],
-             '6': ['M', 'N', 'O'],
-             '7': ['P', 'Q', 'R', 'S'],
-             '8': ['T', 'U', 'V'],
-             '9': ['W', 'X', 'Y', 'Z']}
-keypad = {}
-for key, value in phone_pad.items():
-    keypad.update(dict.fromkeys(value, key))
+"""
+conversion_functions.py implements 3 functions as part of the NumberConverter
+class. The three functions words_to_number() , number_to_words() and
+all_wordifications() are implemented below.
+
+Helper functions are defined in the util.py file under the Number class.
+"""
+
+from util import Number
+import random
 
 
-""" Input: Phone Number  - type:str
-    Funct (strip): Removes all characters other than digits and alphabets"""
+class NumberConverter:
 
-def strip_number(phone_number):
-    strip_num = re.sub('[^A-Za-z0-9]+', '', str(phone_number))
-    return strip_num
+    def __init__(self, phone_number):
+        self.phone_number = phone_number
+        self.num = Number(self.phone_number)
 
+    def set_number(self, number):
+        self.num.phone_number = number
 
-""" Input: Phone Number - type:str
-    Funct(valid_word): Returns a valid english word in the given number"""
+    def words_to_number(self):
+        """
+        Function: Converts a phone number containing letters
+                  into a pure phone number with only digits
+        """
+        if self.num.phone_number is None:
+            print("Input should be of type: str")
+            return ""
 
-def valid_word(phone_number):
-    p = re.compile('[^A-Za-z]')
-    word_list = p.split(str(phone_number))
-    word_list = list(filter(None, word_list))
+        ret_num = ""
+        if not self.num.phone_number:
+            return self.num.phone_number
 
-    for word in word_list:
-        if(word.lower() in word_set and len(word) > 2):
-            return word
-    return ""
+        for i in range(len(self.num.phone_number)):
+            if(self.num.phone_number[i].isalpha()):
+                ret_num += str(self.num.keypad[self.num.phone_number[i].upper()])
+                continue
+            ret_num += self.num.phone_number[i]
+        return self.num.phone_format(ret_num)
 
+    def all_wordifications(self):
+        """
+        Function: Returns a list of all possible combinations
+                  containing valid english words and a list of
+                  unique english words that exist for this number
+        """
+        if self.num.phone_number is None:
+            print("Input must be of type str")
+            return [], []
+        phone_number = self.num.strip_number(self.words_to_number())
+        if not phone_number:
+            return [], []
 
-""" Input: Phone Number - type: str
-    Funct (phone_format): Returns formated number into following pattern
-                          (d-ddd-ddd-dddd) or (ddd-lll-ddd) where d-digit; l-letter"""
+        number_list = []
+        english_list = set()
 
-def phone_format(phone_number):
-    clean_phone_number = re.sub('[^A-Za-z0-9]+', '', str(phone_number))
-    word = valid_word(phone_number)
+        # Recursive Helper Function
+        def wordification_helper(phone_number, combination):
+            # Base case: if length(num)=0 add to list
+            if len(phone_number) == 0:
+                word = self.num.valid_word(combination)
+                if word:
+                    number_list.append(self.num.phone_format(combination))
+                    english_list.add(word)
+                    return
+                return
 
-    if word:
-        p = re.compile('(' + word + ')')
-        num_list = p.split(clean_phone_number)
-        num_list = list(filter(None, num_list))
-        formatted_num = ""
-        for i in range(len(num_list)):
-            if i != len(num_list)-1:
-                formatted_num += num_list[i] + "-"
-        formatted_num += num_list[-1]
-        return formatted_num
+            for letter in self.num.phone_pad[phone_number[0]]:
+                wordification_helper(phone_number[1:], combination + letter)
 
-    # Formats the number to the desired pattern using regex
+            # To consider combinations where some numbers are not changed
+            wordification_helper(phone_number[1:], combination + phone_number[0])
+            return
 
-    formatted_phone_number = (re.sub("(\w)(?=(\w{3})+(?!\w))", r"\1-", "%s" %
-                             str(clean_phone_number[:-1])) + clean_phone_number[-1])
-    return formatted_phone_number
+        wordification_helper(phone_number, "")
+        return number_list, english_list
+
+    def number_to_words(self):
+        """
+        Function: Returns one random number from the list of
+                  numbers containing valid english word combinations
+        """
+        if self.num.phone_number is None:
+            print("Input must be of type str")
+            return ""
+        num_list, english_words = self.all_wordifications()
+        if num_list:
+            return random.choice(num_list)
+        else:
+            return ""
