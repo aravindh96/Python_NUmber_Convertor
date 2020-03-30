@@ -30,10 +30,10 @@ $ python -m unittest discover
 3. all_wordifications() - Outputs all possible combination of English words in a given number
 
 ## Structure:
-1. The 3 main functions are implemented as class methods in conversion_functions.py. 
-2. Some variables such as the phone number and phone pad mapping along with helper functions to format the number are         implemented as methods in a class in util.py.
-3. main.py creates objects of the classes and provides a user input interface when run on the command line.
-4. test_functions.py contain some testcases for both helper and main functions.
+1. The 3 main functions are implemented as class methods in **conversion_functions.py**. 
+2. Some variables such as the phone number and phone pad mapping along with helper functions to format the number are         implemented as methods in a class in **util.py**.
+3. **main.py** creates objects of the classes and provides a user input interface when run on the command line.
+4. **test_functions.py** contain some testcases for both helper and main functions.
 
 ## Assumptions
 1. Valid english words are returned using a corpus of words from nltk. Other languages can be implemented by downloading similar wordsets.
@@ -41,9 +41,8 @@ $ python -m unittest discover
 3. Callocations are not recognised in the nltk wordset, for ex 'racecar' will not be recognised.
 
 ## References
-https://stackoverflow.com/questions/2974022/is-it-possible-to-assign-the-same-value-to-multiple-keys-in-a-dict-object-at-onc
-https://www.mobilefish.com/services/phonenumber_words/phonenumber_words.php
-https://dev.to/petercour/swap-keys-and-values-in-a-python-dictionary-1njn
-https://stackoverflow.com/questions/7058120/whats-the-best-way-to-format-a-phone-number-in-python
-https://www.pythonforbeginners.com/regex/regular-expressions-in-python
-https://stackoverflow.com/questions/3788870/how-to-check-if-a-word-is-an-english-word-with-python
+1. https://www.mobilefish.com/services/phonenumber_words/phonenumber_words.php
+2. https://dev.to/petercour/swap-keys-and-values-in-a-python-dictionary-1njn
+3. https://stackoverflow.com/questions/7058120/whats-the-best-way-to-format-a-phone-number-in-python
+4. https://www.pythonforbeginners.com/regex/regular-expressions-in-python
+5. https://stackoverflow.com/questions/3788870/how-to-check-if-a-word-is-an-english-word-with-python
