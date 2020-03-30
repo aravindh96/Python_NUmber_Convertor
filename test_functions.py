@@ -1,8 +1,19 @@
 
+"""
+test_functions.py contains some testcases for the main functions and helper functions
+
+There are two classes in this file:
+TestHelperFunctions(): Contains unit test functions for the helper functions in util.py
+TestMainFunctions(): Contains tests for the main funcitons in conversion_functions.py"
+
+Enter "python -m unittest discover" in terminal to run all the tests.
+"""
+
 import unittest
 
 from conversion_functions import NumberConverter
 from util import Number
+
 
 class TestHelperFunctions(unittest.TestCase):
 
@@ -96,29 +107,35 @@ class TestMainFunctions(unittest.TestCase):
     def test_allword_letters(self):
         # Test checks if all_wordifications() works with number set with only letters
         self.test_number.set_number("racecar")
-        result1,result2 = self.test_number.all_wordifications()
+        result1, result2 = self.test_number.all_wordifications()
         self.assertTrue(len(result1)>1)
 
     def test_number2word_empty(self):
         # Test checks if number_to_word() works with empty string
         self.test_number.set_number("")
-        result1, result2= self.test_number.all_wordifications()
+        result1, result2 = self.test_number.all_wordifications()
         result3 = self.test_number.number_to_words()
         self.assertIn(result3, "")
 
     def test_number2word_special_char(self):
         # Test checks if number_to_word() works with all non alpha numeric input
         self.test_number.set_number("^%&^@(*#@)")
-        result1, result2= self.test_number.all_wordifications()
+        result1, result2 = self.test_number.all_wordifications()
         result3 = self.test_number.number_to_words()
         self.assertIn(result3, "")
 
     def test_number2word_letter(self):
         # Test checks if number_to_word() works with both number and letters
         self.test_number.set_number("1800-%You_hI")
-        result1, result2= self.test_number.all_wordifications()
+        result1, result2 = self.test_number.all_wordifications()
         result3 = self.test_number.number_to_words()
         self.assertIn(result3, result1)
+
+    def test_number2word_None(self):
+        # Test checks if number_to_word() works with None input
+        self.test_number.set_number(None)
+        result3 = self.test_number.number_to_words()
+        self.assertEqual(result3, "")
 
 
 if __name__ == 'main':
