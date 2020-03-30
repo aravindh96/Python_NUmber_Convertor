@@ -1,18 +1,39 @@
-from conversion_functions import *
 
-newnum = NumberConverter("9rac#$@!7328")
-# num2 = NumberConverter("")
+"""
+Main.py when run on terminal requests input from the user
+and runs the appropriate function.
+"""
 
-# newnum.words_to_number()
+from conversion_functions import NumberConverter
+from util import Number
 
+testnum = NumberConverter("1800-Painter")
+flag = True
+while(flag):
 
+    number = input("Please enter the phone number: ")
 
+    option = input(" Please enter the OPTION NUMBER:\n \
+            1. words_to_number()\n \
+            2. number_to_words()\n \
+            3. all_wordifications()\n \
+            OPTION NUM: ")
 
-# list1,list2 = newnum.all_wordifications()
-# print(newnum.phone_format(newnum.phone_number))
-# print(newnum.strip_number(newnum.phone_number))
-# print(newnum.valid_word(newnum.phone_number))
-print(newnum.words_to_number())
+    testnum.set_number(str(number))
+    if option == "1":
+        print("\n" + testnum.words_to_number())
 
+    elif option == "2":
+        print("\n" + testnum.number_to_words())
 
-# print(list2,list1)
+    elif option == "3":
+        num_list, eng_list = testnum.all_wordifications()
+        print("\n" ,num_list)
+        print("\n List of possible english words", eng_list)
+
+    else:
+        print("Invalid Input")
+
+    cont = input("\n Do you want to continue (Y/N) :")
+    if (cont.upper() == "N" ):
+        flag = False

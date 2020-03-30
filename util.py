@@ -1,6 +1,17 @@
 
+"""
+util.py implements the class Number which has as its attributes the phone number
+the number pad mapping associated with a cell phone.
+
+The Helper functions implemented here include:
+strip_number() - Returns only alphanumberic charecters
+valid_word() - Checks if the string contains a valid english word.
+phone_format() - Returns a phone number formatted according to a specified pattern
+"""
 import re
 from nltk.corpus import words
+
+
 class Number:
 
     def __init__(self, phone_number, word_set=None, phone_pad=None, keypad=None):
